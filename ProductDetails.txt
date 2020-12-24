@@ -1,0 +1,95 @@
+package com.smu.assignment;
+
+public class ProductDetails {
+    private String pName;
+    private int itemPurchased;
+    private int itemSold;
+    private float pCostPrice;
+    private float pSellPrice;
+    private float pTtlCstPrc;
+    private float pTtlSlPrc;
+    private float itemPLPercent;
+    private String status;
+    public float getpTtlCstPrc() {
+        return pTtlCstPrc;
+    }
+    public void setpTtlCstPrc(float pTtlCstPrc) {
+        this.pTtlCstPrc = pTtlCstPrc;
+    }
+    public float getpTtlSlPrc() {
+        return pTtlSlPrc;
+    }
+    public void setpTtlSlPrc(float pTtlSlPrc) {
+        this.pTtlSlPrc = pTtlSlPrc;
+    }
+    public float getItemPLPercent() {
+        return itemPLPercent;
+    }
+    public void setItemPLPercent(float itemPLPercent) {
+        this.itemPLPercent = itemPLPercent;
+    }
+    public String getpName() {
+        return pName;
+    }
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+    public int getItemPurchased() {
+        return itemPurchased;
+    }
+    public void setItemPurchased(int itemPurchased) {
+        this.itemPurchased = itemPurchased;
+    }
+    public int getItemSold() {
+        return itemSold;
+    }
+    public void setItemSold(int itemSold) {
+        this.itemSold = itemSold;
+    }
+    public float getpCostPrice() {
+        return pCostPrice;
+    }
+    public void setpCostPrice(float pCostPrice) {
+        this.pCostPrice = pCostPrice;
+    }
+    public float getpSellPrice() {
+        return pSellPrice;
+    }
+    public void setpSellPrice(float pSellPrice) {
+        this.pSellPrice = pSellPrice;
+    }
+    public ProductDetails(String pName, int itemPurchased, int itemSold, float pCostPrice, float pSellPrice) {
+        super();
+        this.pName = pName;
+        this.itemPurchased = itemPurchased;
+        this.itemSold = itemSold;
+        this.pCostPrice = pCostPrice;
+        this.pSellPrice = pSellPrice;
+        this.pTtlCstPrc = itemPurchased*pCostPrice;
+        this.pTtlSlPrc = itemSold*pSellPrice;
+        this.itemPLPercent = ((pTtlSlPrc-pTtlCstPrc)*100)/pTtlCstPrc;
+        if (itemPLPercent>0) {
+            this.status= "PROFIT";
+        }
+        else if(itemPLPercent==0)
+            {this.status= "BREAK-EVEN";
+            
+            }
+        else 
+            this.status="LOSS";
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @Override
+    public String toString() {
+        return "ProductDetails [pName=" + pName + ", itemPurchased=" + itemPurchased + ", itemSold=" + itemSold
+                + ", pCostPrice=" + pCostPrice + ", pSellPrice=" + pSellPrice + ", pTtlCstPrc=" + pTtlCstPrc
+                + ", pTtlSlPrc=" + pTtlSlPrc + ", itemPLPercent=" + itemPLPercent + ", status=" + status + "]";
+    }  
+
+}
