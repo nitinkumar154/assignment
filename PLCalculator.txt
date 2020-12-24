@@ -1,0 +1,98 @@
+package com.smu.assignment;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PLCalculator {
+   
+    @SuppressWarnings("resource")
+    public static void main(String[] args) {
+        float netPurchase=0.00f;
+        float netSale =0.00f;
+        float plPercent =0.00f;
+        ArrayList<ProductDetails> prdList = new ArrayList<ProductDetails>();
+        System.out.print("enter the number of products:");
+        Scanner scString  = new Scanner(System.in).useDelimiter("\\n");
+        Scanner sc=new Scanner(System.in);
+        int num =sc.nextInt();
+        if (num<=0) {
+          System.out.println("Number should be greater than zero.Exiting the program......");  
+        }
+        else {
+        for (int i = 0; i < num; i++) {
+            System.out.print("enter the name of the product:");
+            String name = scString.next();
+            name=name.replace("\r", "");
+            System.out.print("enter the number of "+name+" purchased:");
+            int pNum = sc.nextInt();
+            System.out.print("enter the number of "+name+" sold between (0 to "+pNum+" ) :");
+            int sNum = sc.nextInt();
+            if (sNum>pNum) {
+                System.out.println("Invalid input exiting program");
+                System.exit(1);
+            }
+            System.out.print("enter the cost of each "+name+" :");
+            float cPrice = sc.nextFloat();
+            System.out.print("enter the selling price of each "+name+" :");
+            float sPrice = sc.nextFloat();
+            ProductDetails pd = new ProductDetails(name, pNum, sNum, cPrice, sPrice);
+            prdList.add(pd);
+            netPurchase= netPurchase+pd.getpTtlCstPrc();
+            netSale = netSale+pd.getpTtlSlPrc();
+            System.out.println("\n");
+            
+        }
+        plPercent = findPLPercent(netSale,netPurchase);// 
+        String status = findStatus(plPercent);
+        System.out.println();
+        System.out.printf("%-4s%-20s%-10s%-10s%-20s%-20s%-20s%-25s%-20s%-10s\n", "SNO","|NAME","|#PURCHASE","|#SALE","|COST","|SELLING PRICE","|TOTAL PURCHASES","|TOTAL SALES","|P/L%","|PROFIT/LOSS/BREAKEVEN");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        int i=1;
+        for (ProductDetails pd : prdList) 
+         {
+           System.out.printf("%-4d%-20s%-10d%-10d%-1s%-20.2f%-1s%-20.2f%-1s%-20.2f%-1s%-16.2f%10.2f%-15s%10s\n",i++,pd.getpName(),pd.getItemPurchased(),pd.getItemSold(),"$",pd.getpCostPrice(),"$",pd.getpSellPrice(),"$",pd.getpTtlCstPrc(),"$",pd.getpTtlSlPrc(),pd.getItemPLPercent(),"%",pd.getStatus());
+            
+        }  
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-85s%-1s%-20.2f%-1s%-17.2f%10.2f%-15s%10s\n", "Net Profit/ Loss","$",netPurchase,"$",netSale,plPercent,"%",status);
+        
+        }
+       
+    }
+    /*
+     * This method calculates profit loss percentile
+     * @Input netsale
+     * @Input netPurchase
+     * @Returns ttlPLPercent
+     */
+    private static float findPLPercent(float netSale, float netPurchase) {
+        float ttlPLPercent=0.00f;
+        try {
+             ttlPLPercent=((netSale-netPurchase)*100)/netPurchase;
+        } catch (Exception e) {
+            return ttlPLPercent;
+        }
+        
+        return ttlPLPercent;
+    }
+    
+/*
+ * this method calculates the PROFIT,LOSS,BREAK-EVEN status
+ * @Input   plPercent
+ * @Returns status
+ */
+    private static String findStatus(float plPercent) {
+       String status ="NA";
+        if (plPercent>0) {
+            status= "PROFIT";
+        }
+        else if(plPercent==0)
+            {status= "BREAK-EVEN";
+            
+            }
+        else if (plPercent<0) 
+            status="LOSS";
+        return status;
+    }
+
+}
