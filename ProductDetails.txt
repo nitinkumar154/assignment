@@ -90,6 +90,6 @@ public class ProductDetails {
         return "ProductDetails [pName=" + pName + ", itemPurchased=" + itemPurchased + ", itemSold=" + itemSold
                 + ", pCostPrice=" + pCostPrice + ", pSellPrice=" + pSellPrice + ", pTtlCstPrc=" + pTtlCstPrc
                 + ", pTtlSlPrc=" + pTtlSlPrc + ", itemPLPercent=" + itemPLPercent + ", status=" + status + "]";
-    }  
-
+    }  https://learn.microsoft.com/api/credentials/share/en-us/NitinKumar154/7794D39E91834D80?sharingId=24DAA20830D887AD
+//
 }
